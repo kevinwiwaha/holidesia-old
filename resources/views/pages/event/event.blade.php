@@ -26,28 +26,32 @@
             @foreach($event as $e)
             <tr>
                 <th scope="row">{{$loop->iteration}}</th>
-                <td>{{$e->nama_events}}</td>
-                <td>{{$e->lokasi}}</td>
-                <td>{{$e->tanggal_mulai}}</td>
-                <td>{{$e->tanggal_selesai}}</td>
-                <td>
-                    <div class="d-flex">
-                        <a href="edit/<?= $e->slug; ?>" class="btn btn-md btn-warning">Edit</a>
-                        <form action="{{'tambah-acara'}}" method="post">
-                            @csrf
-                            @method('delete')
-                            <input type="hidden" name="id" value="{{$e->id}}">
-                            <button class="mx-2 btn btn-md btn-danger"><i class="fas fa-fw fa-trash mr-1"></i>Hapus</button>
-                        </form>
-                    </div>
-                </td>
+                <td>{{$e->nama_events}}
+                    @if($e->tanggal_selesai < $date) <div class="badge badge-success float-right">SELESAI
+</div>
+@endif
+</td>
+<td>{{$e->lokasi}}</td>
+<td>{{$e->tanggal_mulai}}</td>
+<td>{{$e->tanggal_selesai}}</td>
+<td>
+    <div class="d-flex">
+        <a href="edit/<?= $e->slug; ?>" class="btn btn-md btn-warning"><i class="fas fa-fw fa-trash mr-1"></i>Edit</a>
+        <form action="{{'tambah-acara'}}" method="post">
+            @csrf
+            @method('delete')
+            <input type="hidden" name="id" value="{{$e->id}}">
+            <button class="mx-2 btn btn-md btn-danger"><i class="fas fa-fw fa-trash mr-1"></i>Hapus</button>
+        </form>
+    </div>
+</td>
 
-            </tr>
+</tr>
 
 
-            @endforeach
-        </tbody>
-    </table>
+@endforeach
+</tbody>
+</table>
 </div>
 <!-- /.container-fluid -->
 @endsection

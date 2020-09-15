@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Event;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redis;
@@ -19,10 +20,11 @@ class EventController extends Controller
      */
     public function index()
     {
+        $date = Carbon::now()->format('yy-m-d');
         $event = Event::all();
         $user = Auth::user();
 
-        return view('pages.event.event', ['user' => $user, 'event' => $event]);
+        return view('pages.event.event', ['user' => $user, 'event' => $event, 'date' => $date]);
     }
 
     /**
@@ -75,9 +77,17 @@ class EventController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Event $event)
     {
-        //
+        $date = $event->tanggal_mulai;
+        $new = Carbon::now()->format('yy-m-d');
+        if ($date > $new) {
+            return 'akan datang';
+        } else {
+            return 'sudah lewat';
+        }
+        dump($new);
+        dump($date);
     }
 
     /**
@@ -101,7 +111,16 @@ class EventController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Event::where('id', $id)->update([
+            'nama_events' => $request->nama_events,
+            'slug' => Str::slug($request->nama_events),
+            'lokasi' => $request->lokasi,
+            'tipe' => $request->tipe,
+            'deskripsi' => $request->deskripsi,
+            'tanggal_mulai' => $request->tanggal_mulai,
+            'tanggal_selesai' => $request->tanggal_selesai
+        ]);
+        return redirect('/admin/daftar-acara');
     }
 
     /**

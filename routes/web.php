@@ -24,6 +24,8 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
     Route::put('/tambah-acara', 'EventController@store');
     Route::delete('/tambah-acara', 'EventController@destroy');
     Route::get('/edit/{event}', 'EventController@edit');
+    Route::put('/ubah-acara/{event}', 'EventController@update');
+    Route::get('/{event}', 'EventController@show');
 });
 
 Auth::routes();
