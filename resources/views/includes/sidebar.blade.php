@@ -24,9 +24,9 @@
             <span>Dashboard</span></a>
     </li>
     <li class="nav-item active">
-        <a class="nav-link" href="index.html">
+        <a class="nav-link" href="{{url('/galeri')}}">
             <i class="fas fa-fw fa-images"></i>
-            <span>Galeri Travel</span></a>
+            <span>Galeri Event</span></a>
     </li>
 
     <li class="nav-item active">

@@ -56,17 +56,10 @@ class EventController extends Controller
             'tanggal_mulai' => 'required',
             'tanggal_selesai' => 'required'
         ]);
-
-        Event::create([
-            'nama_events' => $request->nama_events,
-            'slug' => Str::slug($request->nama_events),
-            'lokasi' => $request->lokasi,
-            'tipe' => $request->tipe,
-            'deskripsi' => $request->deskripsi,
-            'tanggal_mulai' => $request->tanggal_mulai,
-            'tanggal_selesai' => $request->tanggal_selesai
-        ]);
-
+        $input = $request->all();
+        $input['slug'] = Str::slug($request->nama_events);
+        $input['user_id'] = Auth::user()->id;
+        Event::create($input);
 
         return redirect('admin/daftar-acara');
     }
@@ -79,15 +72,9 @@ class EventController extends Controller
      */
     public function show(Event $event)
     {
-        $date = $event->tanggal_mulai;
-        $new = Carbon::now()->format('yy-m-d');
-        if ($date > $new) {
-            return 'akan datang';
-        } else {
-            return 'sudah lewat';
-        }
-        dump($new);
-        dump($date);
+        $user = Auth::user();
+
+        return view('pages.event.detailEvent', ['user' => $user]);
     }
 
     /**

@@ -17,8 +17,17 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::prefix('galeri')->middleware('auth')->namespace('Admin')->group(function () {
+    Route::get('/', 'GalleryController@index');
+    Route::get('/tambah-galeri', 'GalleryController@create');
+});
 Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function () {
     Route::get('/', 'DashboardController@index')->name('dashboard')->middleware('auth');
+
+    // Galeri
+
+    // List ACARA
+
     Route::get('/daftar-acara', 'EventController@index')->name('event');
     Route::get('/tambah-acara', 'EventController@create');
     Route::put('/tambah-acara', 'EventController@store');
@@ -26,6 +35,11 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
     Route::get('/edit/{event}', 'EventController@edit');
     Route::put('/ubah-acara/{event}', 'EventController@update');
     Route::get('/{event}', 'EventController@show');
+
+
+    // Laporan
+    // Galeri 
+
 });
 
 Auth::routes();
