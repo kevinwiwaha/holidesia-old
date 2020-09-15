@@ -2,7 +2,7 @@
 <ul class="navbar-nav bg-gradient-danger sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url('admin')}}">
         <div class="sidebar-brand-icon">
             <i class="fas fa-plane-departure"></i>
         </div>
@@ -12,6 +12,11 @@
     <!-- Divider -->
     <hr class="sidebar-divider my-0">
 
+    <li class="nav-item active">
+        <a class="nav-link" href="{{url('admin/daftar-acara')}}">
+            <i class="fas fa-fw fa-calendar"></i>
+            <span>Daftar Acara</span></a>
+    </li>
     <!-- Nav Item - Dashboard -->
     <li class="nav-item active">
         <a class="nav-link" href="index.html">
@@ -23,11 +28,7 @@
             <i class="fas fa-fw fa-images"></i>
             <span>Galeri Travel</span></a>
     </li>
-    <li class="nav-item active">
-        <a class="nav-link" href="index.html">
-            <i class="fas fa-fw fa-route"></i>
-            <span>Paket Travel</span></a>
-    </li>
+
     <li class="nav-item active">
         <a class="nav-link" href="index.html">
             <i class="fas fa-fw fa-credit-card"></i>

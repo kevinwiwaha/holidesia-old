@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::prefix('admin')->namespace('Admin')->group(function () {
-    Route::get('/', 'DashboardController@index')->name('dashboard');
+Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function () {
+    Route::get('/', 'DashboardController@index')->name('dashboard')->middleware('auth');
+    Route::get('/daftar-acara', 'EventController@index')->name('event');
+    Route::get('/tambah-acara', 'EventController@create');
+    Route::put('/tambah-acara', 'EventController@store');
+    Route::delete('/tambah-acara', 'EventController@destroy');
+    Route::get('/edit/{event}', 'EventController@edit');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
