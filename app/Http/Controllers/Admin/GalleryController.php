@@ -41,7 +41,10 @@ class GalleryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $data['image'] = $request->file('image')->store('galeri', 'public');
+        Gallery::create($data);
+        return redirect('/galeri');
     }
 
     /**
@@ -63,7 +66,8 @@ class GalleryController extends Controller
      */
     public function edit(Gallery $gallery)
     {
-        //
+        $event = $gallery;
+        return view('pages.galeri.updateGaleri', ['user' => Auth::user(), 'event' => $event]);
     }
 
     /**
@@ -75,7 +79,13 @@ class GalleryController extends Controller
      */
     public function update(Request $request, Gallery $gallery)
     {
-        //
+
+        $data = $request->all();
+        $data['image'] = $request->file('image')->store('galeri', 'public');
+
+        Gallery::findOrFail($gallery->id)->update($data);
+
+        return redirect('/galeri');
     }
 
     /**
@@ -84,8 +94,9 @@ class GalleryController extends Controller
      * @param  \App\Gallery  $gallery
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Gallery $gallery)
+    public function destroy(Request $request)
     {
-        //
+        Gallery::where('image', $request->image)->delete();
+        return redirect('/galeri');
     }
 }
