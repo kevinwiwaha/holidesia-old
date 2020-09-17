@@ -20,10 +20,12 @@ Route::get('/', function () {
 Route::prefix('galeri')->middleware('auth')->namespace('Admin')->group(function () {
     Route::get('/', 'GalleryController@index');
     Route::delete('/', 'GalleryController@destroy');
+
     Route::get('/edit/{gallery}', 'GalleryController@edit');
     Route::put('/update-galeri/{gallery}', 'GalleryController@update');
     Route::get('/tambah-galeri', 'GalleryController@create');
     Route::put('/tambah-galeri', 'GalleryController@store');
+    Route::get('/{gallery}', 'GalleryController@show');
 });
 Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function () {
     Route::get('/', 'DashboardController@index')->name('dashboard')->middleware('auth');

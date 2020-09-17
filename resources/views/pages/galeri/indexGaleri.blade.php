@@ -27,7 +27,7 @@
                 <td>{{$e->image}}</td>
                 <td>
                     <div class="d-flex">
-                        <a href="<?= $e->slug; ?>" class="btn btn-md btn-info"><i class="fas fa-fw fa-book"></i>Detail</a>
+                        <a href="galeri/<?= $e->id; ?>" class="btn btn-md btn-info"><i class="fas fa-fw fa-book"></i>Detail</a>
                         <a href="galeri/edit/<?= $e->id; ?>" class="btn btn-md btn-warning  "><i class="fas fa-fw fa-pen"></i>Edit</a>
                         <form action="{{'/galeri'}}" method="post">
                             @csrf

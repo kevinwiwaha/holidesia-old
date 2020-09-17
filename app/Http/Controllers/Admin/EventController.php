@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Event;
 use App\Http\Controllers\Controller;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +22,9 @@ class EventController extends Controller
     public function index()
     {
         $date = Carbon::now()->format('yy-m-d');
-        $event = Event::all();
+        $event = Event::with([
+            'user'
+        ])->get();
         $user = Auth::user();
 
         return view('pages.event.event', ['user' => $user, 'event' => $event, 'date' => $date]);
@@ -58,8 +61,9 @@ class EventController extends Controller
         ]);
         $input = $request->all();
         $input['slug'] = Str::slug($request->nama_events);
-        $input['user_id'] = Auth::user()->id;
-        Event::create($input);
+
+
+        Auth::user()->events()->create($input);
 
         return redirect('admin/daftar-acara');
     }
@@ -73,8 +77,9 @@ class EventController extends Controller
     public function show(Event $event)
     {
         $user = Auth::user();
+        $gallery = $event->gallery;
 
-        return view('pages.event.detailEvent', ['user' => $user]);
+        return view('pages.event.detailEvent', ['user' => $user, 'event' => $event, 'gallery' => $gallery]);
     }
 
     /**

@@ -30,7 +30,7 @@ class GalleryController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('pages.galeri.createGaleri', ['user' => $user]);
+        return view('pages.galeri.createGaleri', ['user' => $user, 'event' => Event::all()]);
     }
 
     /**
@@ -43,7 +43,9 @@ class GalleryController extends Controller
     {
         $data = $request->all();
         $data['image'] = $request->file('image')->store('galeri', 'public');
-        Gallery::create($data);
+        $data['user_id'] = Auth::user()->id;
+        $event = Event::findOrFail($request->event_id);
+        $event->gallery()->create($data);
         return redirect('/galeri');
     }
 
@@ -55,7 +57,7 @@ class GalleryController extends Controller
      */
     public function show(Gallery $gallery)
     {
-        //
+        dd($gallery->event);
     }
 
     /**

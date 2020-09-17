@@ -10,6 +10,15 @@
             <input type="text" name="name" class="form-control" value="{{ old('name') }}" id="name" placeholder="name@example.com">
         </div>
         <div class="form-group">
+            <label for="event">Event</label>
+            <select class="form-control" name="event_id" id="event">
+                @foreach($event as $e)
+                <option value="{{$e->id}}">{{$e->nama_events}}</option>
+
+                @endforeach
+            </select>
+        </div>
+        <div class="form-group">
             <label for="image">Gambar</label>
             <input type="file" name="image" class="form-control" value="{{ old('image') }}" id="image" placeholder="name@example.com">
         </div>

@@ -89,5 +89,10 @@
 
 
 </div>
+<div class="container-fluid">
+    <div class="row">
+        <h1>Latest</h1>
+    </div>
+</div>
 <!-- /.container-fluid -->
 @endsection

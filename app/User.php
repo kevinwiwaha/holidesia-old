@@ -38,6 +38,10 @@ class User extends Authenticatable
     ];
     public function events()
     {
-        return $this->hasMany(Event::class);
+        return $this->hasMany(Event::class, 'user_id', 'id');
+    }
+    public function galleries()
+    {
+        return $this->hasMany(Gallery::class, 'gallery_id', 'id');
     }
 }
