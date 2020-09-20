@@ -5,6 +5,13 @@
 
     <div class="row">
         <div class="col-6">
+            <form action="{{url('admin/tambah-galeri')}}">
+                @csrf
+                @method('put')
+                <input type="hidden" value="{{$event->id}}" name="id" id="id">
+                <input type="hidden" value="{{$event->slug}}" name="slug" id="id">
+                <button class="btn btn-md btn-primary my-2" type="submit">Tambah Gambar</button>
+            </form>
             <table class="table table-bordered">
 
                 <tbody>
@@ -48,7 +55,13 @@
                             <div class="d-flex">
                                 @foreach($gallery as $g)
                                 <img src="{{Storage::url($g->image)}}" style="width:300px" class="img-fluid align-self-center" alt="">
-
+                                <form action="{{'event-galeri'}}" method="post">
+                                    @csrf
+                                    @method('delete')
+                                    <input type="hidden" name="image" value="{{$g->image}}">
+                                    <input type="hidden" name="slug" value="{{$event->slug}}">
+                                    <button class="btn btn-md btn-danger"><i class="fas fa-fw fa-trash"></i>Hapus</button>
+                                </form>
                                 @endforeach
                             </div>
                         </td>

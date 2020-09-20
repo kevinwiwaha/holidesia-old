@@ -23,7 +23,7 @@ Route::prefix('galeri')->middleware('auth')->namespace('Admin')->group(function 
 
     Route::get('/edit/{gallery}', 'GalleryController@edit');
     Route::put('/update-galeri/{gallery}', 'GalleryController@update');
-    Route::get('/tambah-galeri', 'GalleryController@create');
+    Route::get('/tambah-galeri', 'GalleryController@create')->name('tambah-galeri');
     Route::put('/tambah-galeri', 'GalleryController@store');
     Route::get('/{gallery}', 'GalleryController@show');
 });
@@ -34,13 +34,16 @@ Route::prefix('admin')->middleware('auth')->namespace('Admin')->group(function (
 
     // List ACARA
 
+    Route::get('/tambah-galeri', 'EventController@galeri');
+    Route::put('/tambah-galeri', 'EventController@gambar');
     Route::get('/daftar-acara', 'EventController@index')->name('event');
     Route::get('/tambah-acara', 'EventController@create');
     Route::put('/tambah-acara', 'EventController@store');
+    Route::delete('/event-galeri', 'EventController@hapus');
     Route::delete('/tambah-acara', 'EventController@destroy');
     Route::get('/edit/{event}', 'EventController@edit');
     Route::put('/ubah-acara/{event}', 'EventController@update');
-    Route::get('/{event}', 'EventController@show');
+    Route::get('/{event}', 'EventController@show')->name('detail-event');
 
 
     // Laporan

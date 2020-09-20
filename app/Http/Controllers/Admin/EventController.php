@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Event;
+use App\Gallery;
 use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
@@ -81,6 +82,23 @@ class EventController extends Controller
 
         return view('pages.event.detailEvent', ['user' => $user, 'event' => $event, 'gallery' => $gallery]);
     }
+    public function galeri(Request $request)
+    {
+
+        $event = (int)$request->id;
+        return view('pages.event.galeriEvent', ['user' => Auth::user(), 'event' => $request]);
+    }
+    public function gambar(Request $request)
+    {
+
+        $url = '/admin/' . $request->slug;
+        $data = $request->only('image', 'user_id', 'name');
+        $data['image'] = $request->file('image')->store('galeri', 'public');
+        $data['user_id'] = Auth::user()->id;
+        $event = Event::findOrFail($request->id);
+        $event->gallery()->create($data);
+        return redirect($url);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -125,5 +143,11 @@ class EventController extends Controller
     {
         Event::findOrFail($request->id)->delete();
         return redirect()->route('event');
+    }
+    public function hapus(Request $request)
+    {
+        $url = 'admin/' . $request->slug;
+        Gallery::where('image', $request->image)->delete();
+        return redirect()->route('detail-event', $request->slug);
     }
 }

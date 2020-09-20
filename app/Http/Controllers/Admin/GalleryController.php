@@ -7,6 +7,7 @@ use App\Gallery;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Ui\Presets\React;
 
 class GalleryController extends Controller
 {
@@ -27,8 +28,12 @@ class GalleryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+
+
+
+
         $user = Auth::user();
         return view('pages.galeri.createGaleri', ['user' => $user, 'event' => Event::all()]);
     }
